@@ -9,7 +9,18 @@ export const GamesDataSource: Game[] = [
         creator: "Valve",
         dateOfRelease: new Date(),
         genre: Genre.Fps,
-        price: 22,
+        price: 11.99,
+        status: GameStatus.New
+    },
+    {
+        id: 2,
+        title: "Diablo 4",
+        creator: "Blizzard",
+        dateOfRelease: new Date(),
+        genre: Genre.Rpg,
+        price: 99.99,
         status: GameStatus.New
     }
+
+
 ]
