@@ -1,7 +1,6 @@
 import React from "react";
 import {GamesDataSource} from "../data/GamesDataSource";
 import SingleGame from "./SingleGame";
-import {GameStatus} from "../models/GameStatus";
 import {Game} from "../models/Game";
 
 interface GamesState {
@@ -14,24 +13,22 @@ interface GamesProps {
 
 
 export default class Games extends React.Component<GamesProps, GamesState> {
+
+    constructor(props: GamesProps) {
+        super(props);
+        this.changeStatus = this.changeStatus.bind(this);
+    }
+
     state: GamesState = {
         games: GamesDataSource
     }
 
     private changeStatus(game: Game) {
-        switch (game.status) {
-            case GameStatus.New:
-                game.status = GameStatus.SpecialOffer;
-                break;
-            case GameStatus.SpecialOffer:
-                game.status = GameStatus.OutOfStock;
-                break;
-            case GameStatus.OutOfStock:
-                game.status = GameStatus.SpecialOffer;
-                break;
-            default:
-                game.status = GameStatus.New;
-        }
+        const otherGames = this.state.games.filter((x) => x.id !== game.id)
+
+        const newGames = [...otherGames, game]
+
+        this.setState({games: newGames})
     }
 
     render() {
@@ -43,7 +40,7 @@ export default class Games extends React.Component<GamesProps, GamesState> {
             </tr>
             </thead>
             <tbody>
-            {this.state.games.map((game) => <SingleGame updateGame={this.changeStatus} game={game}/>)}
+            {GamesDataSource.map((game) => <SingleGame updateGame={this.changeStatus} game={game}/>)}
             </tbody>
         </table>
     }
