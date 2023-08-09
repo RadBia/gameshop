@@ -1,5 +1,6 @@
 import React from "react";
 import {GamesDataSource} from "../data/GamesDataSource";
+import SingleGame from "./SingleGame";
 
 export default class Games extends React.Component {
     render() {
@@ -17,16 +18,7 @@ export default class Games extends React.Component {
             </tr>
             </thead>
             <tbody>
-            {GamesDataSource.map((game) => <tr>
-                <td>{game.id}</td>
-                <td>{game.title}</td>
-                <td>{game.genre}</td>
-                <td>{game.creator}</td>
-                <td>{game.dateOfRelease.toDateString()}</td>
-                <td>{game.price}</td>
-                <td>{game.status}</td>
-                <td>Button</td>
-            </tr>)}
+            {GamesDataSource.map((game) => <SingleGame game={game}/>)}
             </tbody>
         </table>
     }
